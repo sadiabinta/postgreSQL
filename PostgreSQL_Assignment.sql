@@ -104,8 +104,7 @@ SELECT name,count(sighting_id) as total_sightings from rangers
 JOIN sightings USING(ranger_id)
 GROUP BY ranger_id;
 
---Problem 5 not working
-
+--Problem 5
 select common_name from species 
 WHERE species_id NOT IN 
 (select species_id from sightings);
@@ -122,6 +121,18 @@ set conservation_status='Historic'
 WHERE(EXTRACT(YEAR FROM discovery_date) <1800);
 
 --Problem 8
+SELECT * FROM(
+    select sighting_id,'Morning' as time_of_day from sightings
+    WHERE EXTRACT(HOUR FROM sighting_time) between 00 and 12
+    UNION
+    select sighting_id,'Afternoon' as time_of_day from sightings
+    WHERE EXTRACT(HOUR FROM sighting_time) between 12 and 17
+    UNION
+    select sighting_id,'Evening' as time_of_day from sightings
+    WHERE EXTRACT(HOUR FROM sighting_time) between 17 and 24
+
+);
+
 --Problem 9
 DELETE FROM rangers
 WHERE ranger_id IN( 
