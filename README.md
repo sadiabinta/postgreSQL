@@ -36,3 +36,28 @@
     scientific_name VARCHAR(100)
 );
 
+4. What is the significance of the JOIN operation, and how does it work in PostgreSQL?
+
+    JOIN অপারেশনটি সম্পর্কিত কলামের ভিত্তিতে দুটি বা তার বেশি টেবিল একত্রিত করতে ব্যবহৃত হয় যা FOREIGN KEY। বিভিন্ন টেবিল থেকে ডেটা প্রাপ্ত করার জন্য এটি খুবই গুরুত্বপূর্ণ।
+
+    JOIN-এর বিভিন্ন প্রকার রয়েছে
+    *INNER JOIN
+    *OUTER JOIN
+    *LEFT JOIN
+    *RIGHT JOIN
+    *FULL JOIN
+    *CROSS JOIN
+
+    select s.common_name,sighting_time,"name" from sightings si
+    JOIN rangers r USING (ranger_id)
+    JOIN species s USING(species_id)
+    ORDER BY sighting_time DESC limit 2;
+
+5. Explain the GROUP BY clause and its role in aggregation operations.
+
+    GROUP BY ব্যবহৃত হয় এক ধরনের বা মানের ডেটাকে প্রয়োজন অনুযায়ী ভাগ করার জন্য। এটি একটি বা একাধিক কলামের ভিত্তিতে ডেটা গোষ্ঠীবদ্ধ করে এবং GROUP BY এর কারণে AGGREGATE ফাংশনগুলো গোষ্ঠীতে ব্যবহার করা যেতে পারে সম্পূর্ণ ডেটা সেটের পরিবর্তে।
+
+    SELECT count(*) from(
+    SELECT  count(*) from sightings
+    GROUP BY species_id);
+
